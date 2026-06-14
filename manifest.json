@@ -1,0 +1,10 @@
+{
+  "name": "Nexolio Paint Calculator",
+  "short_name": "PaintCalc",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0a2e73",
+  "orientation": "portrait",
+  "icons": []
+}
