@@ -1,10 +1,22 @@
 {
   "name": "Nexolio Paint Calculator",
   "short_name": "PaintCalc",
+  "description": "Calculate paint quantity and estimated paint cost for rooms and walls.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0a2e73",
   "orientation": "portrait",
-  "icons": []
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
 }
