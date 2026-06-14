@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paint Quantity Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        margin: 30px auto;
+        padding: 30px;
+        max-width: 700px;
+
+    }
+.container {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+    h1 {
+        color: #0a2e73;
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+        color: #555;
+    }
+
+    label {
+        font-weight: bold;
+        color: #4b5563;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+    button {
+        width: 100%;
+        margin-top: 10px;
+        padding: 12px;
+        background: #1f2a44;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #34466f;
+    }
+
+    small {
+        color: #666;
+    }
+
+    #result {
+    background: #e8f5e9;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    color: #2e7d32;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-left: 5px solid #2e7d32;
+}
+#btnCalculate {
+    background: #28a745;
+}
+
+#btnCalculate:hover {
+    background: #218838;
+}
+
+#btnReset {
+    background: #dc3545;
+}
+
+#btnReset:hover {
+    background: #c82333;
+}
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-icon {
+    width: 80px;
+    height: 80px;
+    background: #0a2e73;
+    color: white;
+    border-radius: 50%;
+    margin: 0 auto;
+    line-height: 80px;
+    font-size: 40px;
+    font-weight: bold;
+    }
+
+.logo-text {
+    margin-top: 8px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #0a2e73;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="logo">
+    <div class="logo-icon">N</div>
+    <div class="logo-text">Nexolio</div>
+</div>
+    <h1>Paint Quantity Calculator</h1>
+<label>Language</label><br>
+<select id="language"
+ onchange="changeLanguage()">
+    <option value="en" selected>English</option>
+    <option value="tr">Türkçe</option>
+</select><br><br>
+
+    <p id="welcomeText">Welcome to Nexolio Paint Calculator</p>
+
+    <hr>
+
+    <label id="labelLength">Room Length (meters)</label><br>
+    <input type="number" id="length"><br><br>
+
+    <label id="labelWidth">Room Width (meters)</label><br>
+    <input type="number" id="width"><br><br>
+
+    <label id="labelHeight">Wall Height (meters)</label><br>
+    <input type="number" id="height"><br><br>
+<label id="labelDoors">Number of Doors</label><br>
+<input type="number" id="doors" value="1"><br><br>
+
+<label id="labelWindows">Number of Windows</label><br>
+<input type="number" id="windows" value="1"><br><br>
+<label id="labelCoats">Number of Coats</label><br>
+<input type="number" id="coats" value="2"><br><br>
+<label id="labelCoverage">Paint Coverage (m²/L)</label><br>
+<input type="number" id="coverage" value="10"><br>
+<small id="coverageInfo">Most interior paints cover about 10 m² per liter.</small><br><br>
+<label id="labelPrice">Paint Price Per Liter</label><br>
+<input type="number" id="price" value="8"><br>
+<small id="priceInfo">Enter the price of 1 liter of paint.</small><br><br>
+<label id="labelCurrency">Currency</label><br>
+<select id="currency">
+    <option value="$" selected>$</option>
+    <option value="€">€</option>
+    <option value="£">£</option>
+    <option value="TL">TL</option>
+</select><br><br>
+  <button id="btnCalculate" onclick="calculatePaint()">Calculate</button>
+<button id="btnReset" onclick="resetForm()">Reset</button>
+    <h3 id="result">Result will appear here</h3>
+
+</div>
+<script>
+
+function calculatePaint() {
+
+
+    let length = Number(document.getElementById("length").value);
+    let width = Number(document.getElementById("width").value);
+    let height = Number(document.getElementById("height").value);
+if (length <= 0 || width <= 0 || height <= 0) {
+    alert("Please enter valid room dimensions.");
+    return;
+}
+    let doors = Number(document.getElementById("doors").value);
+    let windows = Number(document.getElementById("windows").value);
+    let coats = Number(document.getElementById("coats").value);
+    let coverage = Number(document.getElementById("coverage").value);
+let price = Number(document.getElementById("price").value);
+let currency = document.getElementById("currency").value;
+    let wallArea = (length + width) * 2 * height;
+    let doorArea = doors * 1.8;
+    let windowArea = windows * 1.2;
+    let paintableArea = wallArea - doorArea - windowArea;
+    let paintNeeded = (paintableArea / coverage) * coats;
+let totalCost = paintNeeded * price;
+
+  let lang = document.getElementById("language").value;
+
+if (lang == "tr") {
+    document.getElementById("result").innerHTML =
+        "🎨 <strong>Gerekli Boya</strong><br>" +
+        "<span style='font-size:24px; font-weight:bold;'>" + paintNeeded.toFixed(1) + " Litre</span><br><br>" +
+        "💰 <strong>Tahmini Maliyet</strong><br>" +
+        "<span style='font-size:24px; font-weight:bold;'>" + totalCost.toFixed(2) + " " + currency + "</span>";
+} else {
+    document.getElementById("result").innerHTML =
+        "🎨 <strong>Paint Needed</strong><br>" +
+        "<span style='font-size:24px; font-weight:bold;'>" + paintNeeded.toFixed(1) + " Liters</span><br><br>" +
+        "💰 <strong>Estimated Cost</strong><br>" +
+        "<span style='font-size:24px; font-weight:bold;'>" + totalCost.toFixed(2) + " " + currency + "</span>";
+}
+
+
+}
+function resetForm() {
+    document.getElementById("length").value = "";
+    document.getElementById("width").value = "";
+    document.getElementById("height").value = "";
+    document.getElementById("doors").value = "1";
+    document.getElementById("windows").value = "1";
+    document.getElementById("coats").value = "2";
+    document.getElementById("coverage").value = "10";
+    document.getElementById("price").value = "8";
+    document.getElementById("currency").value = "$";
+    document.getElementById("result").innerHTML = "Result will appear here";
+}
+function changeLanguage() {
+
+    let lang = document.getElementById("language").value;
+
+   if (lang == "tr") {
+    document.querySelector("h1").innerHTML = "Boya Hesaplama Aracı";
+    document.getElementById("labelLength").innerHTML = "Oda Uzunluğu (metre)";
+    document.getElementById("labelWidth").innerHTML = "Oda Genişliği (metre)";
+    document.getElementById("labelHeight").innerHTML = "Duvar Yüksekliği (metre)";
+    document.getElementById("labelDoors").innerHTML = "Kapı Sayısı";
+    document.getElementById("labelWindows").innerHTML = "Pencere Sayısı";
+    document.getElementById("labelCoats").innerHTML = "Kat Sayısı";
+    document.getElementById("labelCoverage").innerHTML = "Boya Kapatıcılığı (m²/L)";
+    document.getElementById("labelPrice").innerHTML = "Litre Başına Boya Fiyatı";
+document.getElementById("btnCalculate").innerHTML = "Hesapla";
+document.getElementById("btnReset").innerHTML = "Temizle";
+document.getElementById("result").innerHTML = "Sonuç burada görünecek";
+document.getElementById("welcomeText").innerHTML = "Nexolio Boya Hesaplama Aracına Hoş Geldiniz";
+document.getElementById("labelCurrency").innerHTML = "Para Birimi";
+document.getElementById("coverageInfo").innerHTML = "Çoğu iç cephe boyası yaklaşık 10 m²/L kapatır.";
+document.getElementById("priceInfo").innerHTML = "1 litre boyanın fiyatını girin.";
+
+} else {
+    document.querySelector("h1").innerHTML = "Paint Quantity Calculator";
+    document.getElementById("labelLength").innerHTML = "Room Length (meters)";
+    document.getElementById("labelWidth").innerHTML = "Room Width (meters)";
+    document.getElementById("labelHeight").innerHTML = "Wall Height (meters)";    
+    document.getElementById("labelDoors").innerHTML = "Number of Doors";
+    document.getElementById("labelWindows").innerHTML = "Number of Windows";
+    document.getElementById("labelCoats").innerHTML = "Number of Coats";
+    document.getElementById("labelCoverage").innerHTML = "Paint Coverage (m²/L)";
+    document.getElementById("labelPrice").innerHTML = "Paint Price Per Liter";
+document.getElementById("btnCalculate").innerHTML = "Calculate";
+document.getElementById("btnReset").innerHTML = "Reset";
+document.getElementById("result").innerHTML = "Result will appear here";
+document.getElementById("welcomeText").innerHTML = "Welcome to Nexolio Paint Calculator";
+document.getElementById("labelCurrency").innerHTML = "Currency";
+document.getElementById("coverageInfo").innerHTML = "Most interior paints cover about 10 m² per liter.";
+document.getElementById("priceInfo").innerHTML = "Enter the price of 1 liter of paint.";
+}
+}
+
+</script>
+</body>
+</html>
